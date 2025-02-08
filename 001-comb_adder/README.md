@@ -4,6 +4,20 @@ https://www.edaplayground.com/x/6tDd
 
 ![alt text](image.png)
 
+## Doğrulama Adımları
+
+1. Packet Tanımlanır
+2. Packet'tan sequence oluşturulur ve sequence içerisinde body task packetin nasıl sürüleceğini belirtir.
+  - Driver sequencera run_phase'te seq_item_port.get_next_item(req) üzerinden istek oluşturduğunda sequencer bu sequence'e uvm_do operasyonu ile packeti oluşturup göndermesini ister.
+3. Driver virtual interface ile connect_phase bağlanır ve virtual interface üzerinden sequencerdan gelen sequnece'i sürer.
+4. Monitor'de virtual interface'de ki veri trafiğini run_phase'te görüntülemek için bu virtual interface'e bağlanır.
+5. Monitor ek olarak bir TLM portu ile scoreboarda bağlıdır vebu port üzerinden virtual interface'de gözlemlediği verileri iletir.
+6. Driver ve sequencer bağlantısı agent'ta yapılır.
+7. Environment'ta agent ve scoreboard örneklenir ve agent içerisinde örneklenen monitor ile scoreboard TLB bağlantısı connect_phase'da bağlanır.
+8. Scoreboard golden modeli barındırır ve monitor izleme verileri ile kendi verilerini kıyaslar.
+9. Test sınıfınca çalıştırılacak testler ve default test gibi ya da sistem bazında bazı yapılandırmalar yapılır.
+10. Top modülde run_test ile phase aşamaları başlatılır.
+
 ```log
 # UVM_INFO /usr/share/questa/questasim/verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(277) @ 0: reporter [Questa UVM] QUESTA_UVM-1.2.3
 # UVM_INFO /usr/share/questa/questasim/verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(278) @ 0: reporter [Questa UVM]  questa_uvm::init(+struct)
