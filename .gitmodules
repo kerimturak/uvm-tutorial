@@ -1,0 +1,3 @@
+[submodule "006-uart/duv/uart-with-fifo"]
+	path = 006-uart/duv/uart-with-fifo
+	url = https://github.com/kerimturak/uart-with-fifo.git
