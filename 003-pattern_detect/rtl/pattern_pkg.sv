@@ -6,7 +6,7 @@ package pattern_pkg;
   typedef uvm_config_db#(virtual pattern_if) pattern_if_config;
 
   `include "packet.sv"
-  `include "sequence.sv"
+  `include "seqs.sv"
   `include "sequencer.sv"
   `include "driver.sv"
   `include "monitor.sv"

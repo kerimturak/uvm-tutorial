@@ -23,8 +23,7 @@ class agent extends uvm_agent;
   endfunction : build_phase
 
   function void connect_phase(uvm_phase phase);
-    if (is_active == UVM_ACTIVE) 
-      i_driver.seq_item_port.connect(i_sequencer.seq_item_export);
+    if (is_active == UVM_ACTIVE) i_driver.seq_item_port.connect(i_sequencer.seq_item_export);
   endfunction : connect_phase
 
   function void start_of_simulation_phase(uvm_phase phase);
