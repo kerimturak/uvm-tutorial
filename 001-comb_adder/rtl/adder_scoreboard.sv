@@ -1,19 +1,5 @@
-// ----------------------------------------------------------------------
-// adder_scoreboard: UVM Scoreboard (Puanlama Tahtası)
-// Açıklama:
-// - `adder_scoreboard`, test edilen işlemleri doğrulayan bir bileşendir.
-// - `adder_packet` nesnelerini alır ve doğruluğunu kontrol eder.
-// - `write()` fonksiyonu aracılığıyla gelen işlemleri alır.
-// - `report_results()` fonksiyonu ile işlem sonuçlarını değerlendirir.
-// ----------------------------------------------------------------------
-
 class adder_scoreboard extends uvm_scoreboard;
 
-  // ----------------------------------------------------------------------
-  // UVM Component Kayıt Makrosu
-  // - `adder_scoreboard` nesnesini UVM fabrika sistemine kaydeder.
-  // - `create()` fonksiyonunun kullanılmasını sağlar.
-  // ----------------------------------------------------------------------
   `uvm_component_utils(adder_scoreboard)
 
   // ----------------------------------------------------------------------
@@ -23,29 +9,16 @@ class adder_scoreboard extends uvm_scoreboard;
   // ----------------------------------------------------------------------
   uvm_analysis_imp #(adder_packet, adder_scoreboard) adder_mon;
 
-  // Gelen işlemi saklamak için `adder_packet` nesnesi
   adder_packet adder_transaction;
 
-  // Test edilen işlemlerin sayısını tutan sayaç
   int adder_count;
 
-  // ----------------------------------------------------------------------
-  // Constructor (Yapıcı Fonksiyon)
-  // - `adder_scoreboard` nesnesini başlatır.
-  // - `adder_mon` analysis port'unu oluşturur.
-  // - `adder_count` sayacı sıfır olarak başlatılır.
-  // ----------------------------------------------------------------------
   function new(string name = "adder_scoreboard", uvm_component parent = null);
     super.new(name, parent);
     adder_count = 0;
-    adder_mon = new("adder_mon", this); // Analysis port başlatılıyor
+    adder_mon = new("adder_mon", this);
   endfunction
 
-  // ----------------------------------------------------------------------
-  // build_phase()
-  // - Simülasyon başlamadan önce bileşenleri oluşturur.
-  // - `adder_transaction`, `adder_packet` nesnesi olarak başlatılır.
-  // ----------------------------------------------------------------------
   virtual function void build_phase(uvm_phase phase);
     super.build_phase(phase);
     adder_transaction = adder_packet::type_id::create("adder_transaction");
@@ -80,32 +53,3 @@ endfunction
 
 
 endclass : adder_scoreboard
-
-// ----------------------------------------------------------------------
-// KODUN SAĞLADIĞI ÖZELLİKLER
-// ----------------------------------------------------------------------
-// 1. **Factory Desteği (`create()`)**
-//    - `adder_scoreboard` nesnesi fabrika sisteminde oluşturulabilir.
-//    - Örnek:
-//      ```systemverilog
-//      adder_scoreboard sb;
-//      sb = adder_scoreboard::type_id::create("sb", parent);
-//      ```
-//
-// 2. **Monitor ile Bağlantı**
-//    - `uvm_analysis_imp` kullanılarak **monitor'den gelen işlemler alınır.**
-//
-// 3. **Test Sonuçlarını Değerlendirme**
-//    - **write()** fonksiyonu ile işlemler alınır ve sayaç artırılır.
-//    - **report_results()** fonksiyonu ile testin doğruluğu kontrol edilir.
-//
-// 4. **Hata ve Bilgilendirme Mesajları**
-//    - **Doğru sonuçlar için `uvm_info()` mesajı verilir.**
-//    - **Yanlış sonuçlar için `uvm_error()` mesajı üretilir.**
-//
-// 5. **Sayaç ile Test Takibi**
-//    - `adder_count` ile kaç adet işlem test edildiği takip edilir.
-//
-// ----------------------------------------------------------------------
-// Bu kod, UVM doğrulama ortamında **scoreboard yönetimi** için optimize edilmiştir.
-// ----------------------------------------------------------------------

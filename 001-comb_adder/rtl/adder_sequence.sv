@@ -10,20 +10,8 @@
 
 class adder_base_seq extends uvm_sequence #(adder_packet);
 
-  // ----------------------------------------------------------------------
-  // `uvm_object_utils(adder_base_seq)`
-  // - UVM fabrika sistemine `adder_base_seq` nesnesini kaydeder.
-  // - `create()` fonksiyonunun kullanılmasını sağlar.
-  // - `print()`, `clone()`, `compare()`, `record()` gibi fonksiyonları destekler.
-  // ----------------------------------------------------------------------
-  `uvm_object_utils(adder_base_seq)  // sequences automation
+  `uvm_object_utils(adder_base_seq)  // wrap up to implement create, get_type(), get_type_name()
 
-  // ----------------------------------------------------------------------
-  // Constructor (Yapıcı Fonksiyon)
-  // - `adder_base_seq` nesnesini başlatır.
-  // - Varsayılan olarak `"adder_base_seq"` ismini kullanır.
-  // - `super.new(name);` ile üst sınıf olan `uvm_sequence`'in yapıcı fonksiyonu çağrılır.
-  // ----------------------------------------------------------------------
   function new(string name = "adder_base_seq");
     super.new(name);
   endfunction
@@ -71,33 +59,3 @@ class adder_base_seq extends uvm_sequence #(adder_packet);
   endtask : post_body
 
 endclass : adder_base_seq
-
-// ----------------------------------------------------------------------
-// KODUN SAĞLADIĞI ÖZELLİKLER
-// ----------------------------------------------------------------------
-// 1. **Factory Desteği (`create()`)**
-//    - `adder_base_seq` nesnesi fabrika sisteminde oluşturulabilir.
-//    - Örnek:
-//      ```systemverilog
-//      adder_base_seq seq;
-//      seq = adder_base_seq::type_id::create("seq");
-//      ```
-//
-// 2. **Veri Gönderme (`body()`)**
-//    - `adder_packet` nesnelerini `uvm_do(req)` ile gönderir.
-//    - `repeat (5)` ifadesiyle **5 kez çalıştırılır.**
-//
-// 3. **Objection Mekanizması (`pre_body()` ve `post_body()`)**
-//    - `raise_objection()` ile testin erken bitmesini engeller.
-//    - `drop_objection()` ile testin tamamlandığını bildirir.
-//
-// 4. **Bilgi Mesajları (`uvm_info()`)**
-//    - Test sürecini takip etmek için **bilgi mesajları basılır.**
-//    - `pre_body()` içinde `"raise objection"` mesajı yazdırılır.
-//    - `body()` içinde `"Executing adder_packets sequence"` mesajı yazdırılır.
-//    - `post_body()` içinde `"drop objection"` mesajı yazdırılır.
-//
-// ----------------------------------------------------------------------
-// Bu kod, UVM doğrulama ortamında **sequence yönetimi** ve **objection kontrolü**
-// sağlamak için optimize edilmiştir.
-// ----------------------------------------------------------------------

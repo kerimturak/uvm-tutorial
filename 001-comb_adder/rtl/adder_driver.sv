@@ -16,31 +16,12 @@ class adder_driver extends uvm_driver #(adder_packet);
   // ----------------------------------------------------------------------
   virtual interface adder_if vif;
 
-  // ----------------------------------------------------------------------
-  // `uvm_component_utils(adder_driver)`
-  // - `adder_driver` nesnesini UVM fabrika sistemine kaydeder.
-  // - `create()` fonksiyonunun kullanılmasını sağlar.
-  // ----------------------------------------------------------------------
   `uvm_component_utils(adder_driver)
 
-  // ----------------------------------------------------------------------
-  // Constructor (Yapıcı Fonksiyon)
-  // - `adder_driver` nesnesini başlatır.
-  // - **İki parametre alır**:
-  //   - `string name`: Driver bileşeninin ismi.
-  //   - `uvm_component parent`: Driver'ın ait olduğu üst bileşen (parent).
-  // - `super.new(name, parent);` ile **üst sınıf olan `uvm_driver`'in yapıcı fonksiyonu çağrılır**.
-  // ----------------------------------------------------------------------
   function new(string name, uvm_component parent);
     super.new(name, parent);
   endfunction : new
 
-  // ----------------------------------------------------------------------
-  // start_of_simulation_phase()
-  // - Simülasyonun başında çağrılan özel bir UVM fonksiyonudur.
-  // - `uvm_info()` mesajı basarak, hangi driver'ın çalıştığını bildirir.
-  // - `get_full_name()` ile bileşenin tam yolu yazdırılır.
-  // ----------------------------------------------------------------------
   function void start_of_simulation_phase(uvm_phase phase);
     `uvm_info(get_type_name(), {"start of simulation for ", get_full_name()}, UVM_HIGH)
   endfunction : start_of_simulation_phase
@@ -90,34 +71,3 @@ class adder_driver extends uvm_driver #(adder_packet);
   endtask : run_phase
 
 endclass : adder_driver
-
-// ----------------------------------------------------------------------
-// KODUN SAĞLADIĞI ÖZELLİKLER
-// ----------------------------------------------------------------------
-// 1. **Factory Desteği (`create()`)**
-//    - `adder_driver` nesnesi fabrika sisteminde oluşturulabilir.
-//    - Örnek:
-//      ```systemverilog
-//      adder_driver drv;
-//      drv = adder_driver::type_id::create("drv", parent);
-//      ```
-//
-// 2. **Sanallaştırılmış Arayüz Bağlantısı (`connect_phase()`)**
-//    - `adder_if` bağlantısının doğrulandığını kontrol eder.
-//    - Eğer bağlantı başarısız olursa, hata mesajı üretir.
-//
-// 3. **Simülasyon Başlangıcı Bilgilendirme**
-//    - `start_of_simulation_phase()` fonksiyonu çalıştığında, hangi **driver'ın aktif olduğu** bilgisi yazdırılır.
-//    - Örnek çıktı:
-//      ```
-//      UVM_INFO @ 0: start of simulation for test_env.driver
-//      ```
-//
-// 4. **Veri Transferi ve Sequencer İşlemleri (`run_phase()`)**
-//    - `adder_packet` nesneleri **sequencer'dan alınır ve interface’e aktarılır**.
-//    - **Gelen işlemler yazdırılır** ve **10 zaman birimi gecikme uygulanır**.
-//    - İşlemin tamamlandığını bildirmek için `seq_item_port.item_done();` çağrılır.
-//
-// ----------------------------------------------------------------------
-// Bu kod, UVM doğrulama ortamında **driver yönetimi** için optimize edilmiştir.
-// ----------------------------------------------------------------------

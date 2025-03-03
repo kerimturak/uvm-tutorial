@@ -9,12 +9,6 @@
 
 class adder_sequencer extends uvm_sequencer #(adder_packet);
 
-  // ----------------------------------------------------------------------
-  // `uvm_component_utils(adder_sequencer)`
-  // - `adder_sequencer` nesnesini UVM fabrika sistemine kaydeder.
-  // - `create()` fonksiyonunun kullanılmasını sağlar.
-  // - UVM testbenç yapısında **sequencer** bileşeni olarak tanımlanır.
-  // ----------------------------------------------------------------------
   `uvm_component_utils(adder_sequencer)
 
   // ----------------------------------------------------------------------
@@ -41,32 +35,3 @@ class adder_sequencer extends uvm_sequencer #(adder_packet);
   endfunction : start_of_simulation_phase
 
 endclass : adder_sequencer
-
-// ----------------------------------------------------------------------
-// KODUN SAĞLADIĞI ÖZELLİKLER
-// ----------------------------------------------------------------------
-// 1. **Factory Desteği (`create()`)**
-//    - `adder_sequencer` nesnesi fabrika sisteminde oluşturulabilir.
-//    - Örnek:
-//      ```systemverilog
-//      adder_sequencer seqr;
-//      seqr = adder_sequencer::type_id::create("seqr", parent);
-//      ```
-//
-// 2. **Veri Yönetimi**
-//    - Sequencer, **adder_packet** nesnelerini **driver'a** yönlendirir.
-//
-// 3. **Simülasyon Başlangıcı Bilgilendirme**
-//    - `start_of_simulation_phase()` fonksiyonu çalıştığında, hangi **sequencer'ın aktif olduğu** bilgisi yazdırılır.
-//    - Örnek çıktı:
-//      ```
-//      UVM_INFO @ 0: start of simulation for test_env.sequencer
-//      ```
-//
-// 4. **UVM Standartlarına Uygunluk**
-//    - `uvm_component_utils()` kullanılarak **sequencer fabrika sistemine eklenmiştir.**
-//    - `super.new(name, parent);` çağrısı ile **üst sınıfın constructor'ı düzgün çalıştırılmıştır.**
-//
-// ----------------------------------------------------------------------
-// Bu kod, UVM doğrulama ortamında **sequencer yönetimi** için optimize edilmiştir.
-// ----------------------------------------------------------------------

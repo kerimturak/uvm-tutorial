@@ -10,8 +10,8 @@
 class adder_packet extends uvm_sequence_item;
 
   // Rastgele atanabilir 8-bit genişliğinde iki operand (toplama işlemi için)
-  rand bit [7:0] num1; // İlk sayı
-  rand bit [7:0] num2; // İkinci sayı
+  rand bit [7:0] num1;
+  rand bit [7:0] num2;
 
   // Toplama işlemi sonucu (8-bit iki sayının toplamı en fazla 9-bit olabilir)
   bit [8:0] out;
@@ -30,8 +30,8 @@ class adder_packet extends uvm_sequence_item;
   // ----------------------------------------------------------------------
   // `uvm_object_utils(adder_packet)
   // - UVM fabrika sistemine (Factory) nesneyi kaydeder.
-  // - `create()` fonksiyonu ile nesne oluşturulabilir.
-  // - `print()`, `clone()`, `compare()`, `record()` gibi işlemleri destekler.
+  // - uvm_object'ten türetilmiş her sınıfın kaydedilmesi gerekir.
+  // - get_type(), get_type_name()`create()` fonksiyonlarını tanımlar ve  create nesne oluşturulabilir.
   // - `adder_packet::type_id::create("pkt")` ile nesne dinamik olarak üretilebilir.
   // ----------------------------------------------------------------------
   `uvm_object_utils_begin(adder_packet)
