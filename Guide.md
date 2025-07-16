@@ -626,3 +626,21 @@ Bu kısımda bir compile edip hataları çözmekte fayda var. Henüz test class�
 - buildde create et
 - agent içerisinde virtual interfacei set et connect_ğhase da
 - tanımlanan agent_set fonksiyonunu confgiuration dan çağır
+
+
+
+19 - sequence item 'dan cfs_apb_item_base'i tanımla
+- koruma ekle
+- sürülecek item olan cfs_apb_drb sequenceinide ondan extend et
+- types içerisinde yazma ve okuma için enum oluştur direction türü için
+- addr ve data içinde bit olarak typedef tanımla
+- bit genişliklerini cfs_apb_if içerisindeki macro tanımlamalarından al
+- bu türlerde rand ile item_drv içerisinde değişkenler oluştur
+- ek olarak pre ve post_drive delay tanımla
+- onlara constraint ekle
+- convert2string tanımla
+- data yı sadece write accesslerde yazacak şekilde oluştur
+- cfs_algn_test_pkg git ve cfg_apg_pkt  import et
+- test_reg_access e git ve for döngüsü ile tek satırda cfs_apg_itemdrv item türünü tanımla ve aynı zamanda create et ve daha sonrasonda randomize et
+- sonra generated değerleri yazdır
+- 
