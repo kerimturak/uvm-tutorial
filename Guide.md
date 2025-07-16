@@ -585,4 +585,44 @@ Bu kısımda bir compile edip hataları çözmekte fayda var. Henüz test class�
 13- test_base'den türetilen classlarda run_phase'ı virtual olarak tanımla
 - raise objection ekle
 - drop objection ile bitir
-- 
+
+14- cfs_apb_pkg oluşutr
+- koruma ekle
+- uvm_macroları include et
+- paketi tanımla
+- uvm kütüphanesini import et
+- env_pkg içerisine include et
+- env_pkg içerisine import et
+
+15- apb interface i oluştur
+- koruma ekle
+- sinyalleri tanımla
+- sinyal byoutlarını ifdefli olarak tanımlaki parametrik yapabilesin (koruma gibi eklenecek)
+- interface package içerisinde olamıyor
+- apb_pkg içerisine include et
+- interface i testbenchte örnekle
+- initial bloğu içerisinde config data base e kaydet
+
+16- apb_types dosyasını oluştur
+- bütün ortak typelar buraya koyulacak
+- koruma ekle
+- virtual interfacei typedef ile kaydet
+- bunu pab_pkg içerisine include et
+- agent_config class'ınıda burada include et
+- apb_agent'ıda include et
+
+ 17- agent configuration class'ı oluştur
+ - koruma ekle
+ - uvm_component'ten exten ediyoruz, bazı özelliklerinden (vum_pahses ve overrwiretan) faydalanmak için
+ - virtual interfacei içerisinde local variable olarak tanımla (local keywordü ile)
+- virtual interface set_vif, get_vif şeklinde fonksiyonlarla tanımla
+- run_phase öncesinde virtual interfacein oluşpup oluşmadığını control et
+
+18- apb agentı yaz
+- koruma ekle
+- agent configuration class için handle ekle
+- build pahse de create et
+- env içerisinde agent örneği oluştur
+- buildde create et
+- agent içerisinde virtual interfacei set et connect_ğhase da
+- tanımlanan agent_set fonksiyonunu confgiuration dan çağır
