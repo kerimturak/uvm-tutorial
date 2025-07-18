@@ -643,4 +643,38 @@ Bu kısımda bir compile edip hataları çözmekte fayda var. Henüz test class�
 - cfs_algn_test_pkg git ve cfg_apg_pkt  import et
 - test_reg_access e git ve for döngüsü ile tek satırda cfs_apg_itemdrv item türünü tanımla ve aynı zamanda create et ve daha sonrasonda randomize et
 - sonra generated değerleri yazdır
+
+20 - sequnecer sınıfını oluştur
+- cfs_apb_pkg içerisine sequencerı dahil et
+- driver class'ını tanımla
+- run phaseı oluştur , getn_next, item_done kısımlarını yaz
+- cfs_apb_pkg içerisine sequencerı dahil et
+- agent config içerisinde local active passive değişkeni oluştur ve default active yap agentı
+- getter, setter methodlarını yaz
+- agent sequencer driver handle oluştur
+- build içerisinde active passive kontrolğü yap ve sequencer, driverı ona göre üret
+- sequencer driver'ıda activelik durumuna göre bağla
+- sequence base class'ını oluştur
+- uvm_p_sequencer tanımla
+- cfs_apb_pkg içerine dahil et (sequencer'dan sonra dahil etmek gerekiyor)
+- cfs_apb_sequence_simple classını yaz, base'den extend et
+- rand cfs_apb_item_drv item üret
+- build de create et
+- body de start, finish ile başlat bitir
+- cfs_apb_pkg içerisne include et
+- cfs_algn_test_reg_access içerinde hiyerarşik olarak start et(örnekle, randomize et, start et)
+- simple sequence start-finish i uvm_do yap eğer randomizationı test içerinde yapmak istiyorsan uvm_send yap
+- cfs_apb_sequence_rw sınıfını oluştur base classtan
+- cfs_apb_pkg içerisine include et
+- body task içerisnde create et bu sefer item'ı void ile randomize et, contraint ekle, start-finish et
+- reg_access_test içerinde başka bir begin end yaz  ve rw sequenceini örnekle, randomize et(constraintte local ekle addr'se), startla
+- üstteki kısımları uvm_do_with ile değiştirebilirsin bu sayede sequence içerisnde constraint eklemek yerine burada ekleriz
+- cfs_apb_sequence_random classını yaz base'den
+- rand int unsigned num_items ekle ve constraint et
+- body de döngü ile sequence oluştur ve randomize edip m_sequencer ile gönder
+- cfs_apb_pkg içerine include et
+- test classına bir beign end daha ekle create et randomu, randomize et, startla sequence num_items ile
+- yukarıdaki randomization kısımlarını createi falan uvm_do ile de yapabilirdik
+- test sınıfındaki begin endleri fork join içerisine al son olarak paralel üretilen seqeunceleri sequencer kendi seri hale getiriyor muş
+- 
 - 
