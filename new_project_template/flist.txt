@@ -1,0 +1,15 @@
+# Dosya listesi - derleme sırası önemlidir
+# Kurallar:
+#  - Bir dosya satırda
+#  - # ile başlayanlar yorum
+#  - Boş satırlar yoksayılır
+#  - Sıra önemli: paket → tasarım → testbench
+
+# Package (UVM ve tipler)
+pkg.sv
+
+# Design files (RTL)
+design.sv
+
+# Testbench (en son)
+tb.sv
