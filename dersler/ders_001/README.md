@@ -1,139 +1,49 @@
-# Lesson 1 — SystemVerilog Class Basics
+# Ders 001 - Temel Sinif, Handle ve Constructor
 
-English:
+## Turkce
 
-A class groups data and subroutines (functions/tasks) that operate on that data. Data inside a class are called "properties" and subroutines are called "methods".
+Bu ders, PDF'deki temel sinif ve nesne mantigini repo icindeki ilk ornekle uyguluyor.
 
-- Example: a `stack` class might have `sp`, `data` as properties and `new`, `print` as methods.
+- `stack` sinifi yeni bir veri tipi tanimlar.
+- `stack s;` satiri nesnenin kendisini degil, nesneye giden handle'i tutar.
+- Handle varsayilan olarak `null` durumundadir; gercek nesne `new()` ile olusturulur.
+- Constructor icinde verilen `name` bilgisi, nesneyi loglarda ayirt etmek icin kullanilir.
+- `this.name` kullanimi, constructor argumani ile class property'sini net sekilde ayirir.
+- `rand bit [7:0] data[3:0];` tanimi, sabit boyutlu bir dizinin randomize edilebildigini gosterir.
 
-Class Declaration:
+### Onemli Notlar
 
-- Properties: data fields inside the class.
-- Methods: functions or tasks operating on those properties.
-- The class name is a type used to declare a class variable (a handle).
+- Class adi ayni zamanda type adidir.
+- Method'lar class icindeki davranisi tasir; bu ornekte `new()` ve `show()` kullaniliyor.
+- `randomize()` cagrisindan sonra `show()` ile handle ve alanlar yazdiriliyor.
+- Bu dersin ana amaci UVM'e gecmeden once OOP tabanini oturtmaktir.
 
-Object Handle:
+### Bu Klasorde Ne Var
 
-- A handle is a variable that holds a reference to an object in memory (its address). It does not contain the object itself.
-- By default a handle is `null` until `new()` is called.
+- `tb.sv`: temel class tanimi, nesne olusturma ve basit randomization ornegi
+- `flist.f`: derleme dosya listesi
+- `Makefile`: Verilator ile hizli derleme ve calistirma
 
-Class Instance (Constructor):
+## English
 
-- An object (instance) is created by calling the class constructor `new()`.
-- `new()` allocates the instance in memory and sets the handle to reference it.
-- You can call `new()` at declaration or later in procedural code.
+This lesson applies the basic class and object concepts from the PDF to the first example in the repository.
 
-Constructor Rules:
+- The `stack` class defines a new data type.
+- The declaration `stack s;` stores an object handle, not the object itself.
+- A handle starts as `null`; the real object is created with `new()`.
+- The constructor argument `name` is used to identify the instance in logs.
+- `this.name` separates the constructor argument from the class property.
+- `rand bit [7:0] data[3:0];` shows that a fixed-size array can be randomized.
 
-- A default constructor exists for every class if you do not define one.
-- You can define an explicit `new` constructor to initialize properties or call other methods.
-- An explicit constructor follows function rules but has no return type.
+### Key Notes
 
-Default Values (when no explicit constructor):
+- A class name is also a type name.
+- Methods carry behavior inside the class; this example uses `new()` and `show()`.
+- After `randomize()`, the code prints the handle and field values with `show()`.
+- The goal of this lesson is to establish the OOP foundation before moving toward UVM-style structures.
 
-- `logic` properties default to `'bx`.
-- `bit` properties default to `'b0`.
+### Files In This Folder
 
-Code example (English):
-
-```systemverilog
-class stack;
-  bit [7:0] data[15];
-  bit [3:0] sp;
-
-  function new();
-    $display("New object is created");
-    foreach (data[i]) begin
-      data[i] = i;
-      $display("data[%0d] : %0d", i, data[i]);
-    end
-  endfunction
-endclass
-
-module tb ();
-  stack s; // handle (null)
-  initial begin
-    s = new();
-  end
-endmodule
-```
-
-Türkçe:
-
-Bir sınıf, verileri ve bu veriler üzerinde işlem yapan alt programları (fonksiyonlar/görevler) bir arada tutar. Sınıf içindeki verilere "özellikler (properties)", alt programlara ise "metodlar (methods)" denir.
-
-- Örnek: `stack` sınıfı `sp`, `data` özelliklerine; `new`, `print` metodlarına sahip olabilir.
-
-Sınıf Tanımı:
-
-- Özellikler: Sınıf içindeki veri alanları.
-- Metodlar: Bu özellikler üzerinde işlem yapan fonksiyonlar veya task'lar.
-- Sınıf adı, bir sınıf değişkeni (handle) tanımlamak için tür olarak kullanılır.
-
-Handle (Nesne Tutucu):
-
-- Handle, bellekdeki bir nesneye referans (adres) tutan değişkendir; nesnenin kendisini taşımaz.
-- Varsayılan olarak handle `null`'dür; `new()` çağrılana kadar instance yoktur.
-
-Sınıf Örneği (Constructor):
-
-- Bir nesne, sınıfın constructor'ı `new()` çağrılarak oluşturulur.
-- `new()` bellekte instance tahsis eder ve handle'a bu adresi atar.
-- `new()` hem deklarasyon esnasında hem de prosedürel kod içinde çağrılabilir.
-
-Constructor Kuralları:
-
-- Eğer tanımlamazsanız her sınıf için bir varsayılan constructor vardır.
-- `new` adında explicit bir constructor tanımlayarak özellikleri başlatabilir veya diğer metodları çağırabilirsiniz.
-- Explicit constructor normal fonksiyon kurallarına uyar fakat dönüş tipi yoktur.
-
-Varsayılan Değerler (Explicit Constructor Yoksa):
-
-- `logic` türündeki özellikler varsayılan `'bx` değerini alır.
-- `bit` türündeki özellikler varsayılan `'b0` değerini alır.
-
-Kod örneği (Türkçe açıklama ile aynı kod):
-
-```systemverilog
-class stack;
-  bit [7:0] data[15]; // property — bit türü, varsayılan 'b0
-  bit [3:0] sp;
-
-  function new();
-    $display("Yeni nesne oluşturuldu");
-    foreach (data[i]) begin
-      data[i] = i;
-      $display("data[%0d] : %0d", i, data[i]);
-    end
-  endfunction
-endclass
-
-module tb ();
-  stack s; // handle (null)
-  initial begin
-    s = new(); // constructor çağrısı
-  end
-endmodule
-```
-
-### Bilinmesi Gerekenler
-
-- A class groups data and subroutines (functions/tasks)
-    - variables = properties
-    - task & function = methods
-- Object Handle = 
-- Class == Data Type
-    - An object is an instance of that class.
-- An object (instance) is created by calling the class constructor new().
-- new() allocates the instance in memory and sets the handle to reference it
-```
-    STACK
-    +------+
-    |  p   | -----------+
-    +------+            |
-                        v
-    HEAP            +----------+
-                    | Packet   |
-                    | data=?   |
-                    +----------+
-```
+- `tb.sv`: basic class declaration, object construction, and simple randomization example
+- `flist.f`: compile file list
+- `Makefile`: quick build and run flow with Verilator
